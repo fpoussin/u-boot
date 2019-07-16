@@ -122,6 +122,18 @@
 #define CONFIG_SYS_SPI_U_BOOT_OFFS	0x8000
 #endif
 
+#ifdef CONFIG_SPL_OS_BOOT
+/* Falcon Mode */
+#define CONFIG_SPL_FS_LOAD_ARGS_NAME    "args"
+#define CONFIG_SPL_FS_LOAD_KERNEL_NAME  "image.itb"
+#define CONFIG_SYS_SPL_ARGS_ADDR        (CONFIG_SYS_SDRAM_BASE + 0x100)
+
+/* Falcon Mode - MMC support: args@1920KB kernel@2048KB */
+#define CONFIG_SYS_MMCSD_RAW_MODE_ARGS_SECTOR   (0x1000 - 64)   /* 128KB */
+#define CONFIG_SYS_MMCSD_RAW_MODE_ARGS_SECTORS  (CONFIG_CMD_SPL_WRITE_SIZE / 512)
+#define CONFIG_SYS_MMCSD_RAW_MODE_KERNEL_SECTOR (0x1000)  /* 2MB */
+#endif
+
 /* mmc config */
 #ifdef CONFIG_MMC
 #define CONFIG_MMC_SUNXI_SLOT		0

@@ -9,10 +9,6 @@
 #include <asm/io.h>
 #include <linux/libfdt.h>
 
-#ifdef CONFIG_SPL_OS_BOOT
-#error CONFIG_SPL_OS_BOOT is not supported yet
-#endif
-
 /*
  * This is a very simple U-Boot image loading implementation, trying to
  * replicate what the boot ROM is doing when loading the SPL. Because we
