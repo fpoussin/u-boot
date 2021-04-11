@@ -81,6 +81,10 @@
 
 #define CONFIG_SPL_BSS_MAX_SIZE		0x00080000 /* 512 KiB */
 
+#define CONFIG_SYS_MMCSD_RAW_MODE_KERNEL_SECTOR 0x1000  /* 2MB */
+#define CONFIG_SPL_FS_LOAD_ARGS_NAME   "args"
+#define CONFIG_SPL_FS_LOAD_KERNEL_NAME "uImage"
+
 /*
  * The A80's A1 sram starts at 0x00010000 rather then at 0x00000000 and is
  * slightly bigger. Note that it is possible to map the first 32 KiB of the
@@ -93,7 +97,7 @@
  */
 #define CONFIG_SYS_INIT_RAM_ADDR	CONFIG_SUNXI_SRAM_ADDRESS
 /* FIXME: this may be larger on some SoCs */
-#define CONFIG_SYS_INIT_RAM_SIZE	0x8000 /* 32 KiB */
+#define CONFIG_SYS_INIT_RAM_SIZE	0xF000 /* 60 KiB for V3S */
 
 #define CONFIG_SYS_INIT_SP_OFFSET \
 	(CONFIG_SYS_INIT_RAM_SIZE - GENERATED_GBL_DATA_SIZE)
@@ -102,6 +106,8 @@
 
 #define PHYS_SDRAM_0			CONFIG_SYS_SDRAM_BASE
 #define PHYS_SDRAM_0_SIZE		0x80000000 /* 2 GiB */
+
+#define CONFIG_SYS_SPL_ARGS_ADDR    (CONFIG_SYS_SDRAM_BASE + 128)
 
 #ifdef CONFIG_AHCI
 #define CONFIG_SYS_64BIT_LBA
@@ -182,8 +188,13 @@
 #define LOW_LEVEL_SRAM_STACK		0x00118000
 #endif
 #else
+#ifdef CONFIG_MACH_SUN8I_V3S /* 32KiB on V3S */
+#define CONFIG_SPL_MAX_SIZE		0x7fa0		/* 32 KiB */
+#define LOW_LEVEL_SRAM_STACK		0x00018000
+#else
 #define CONFIG_SPL_MAX_SIZE		0x5fa0		/* 24KB on sun4i/sun7i */
 #define LOW_LEVEL_SRAM_STACK		0x00008000	/* End of sram */
+#endif
 #endif
 
 #define CONFIG_SPL_STACK		LOW_LEVEL_SRAM_STACK

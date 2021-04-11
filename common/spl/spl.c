@@ -856,3 +856,10 @@ ulong bootcount_load(void)
 	return 0;
 }
 #endif
+
+#ifdef CONFIG_ARMV7_NONSEC
+bool armv7_boot_nonsec(void)
+{
+        return true;
+}
+#endif
